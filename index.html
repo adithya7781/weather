@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+body {
+    font-family: cursive;
+    background-color: lightskyblue;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: GreenYellow;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 70%;
+    border: 1px solid gold;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#weatherInfo {
+    margin-top: 20px;
+}
+
+    </style>
+    <title>Weather App</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        <input type="text" id="cityInput" placeholder="Enter city name">
+        <button id="searchButton">Search</button>
+        <div id="weatherInfo"></div>
+    </div>
+    <script>
+const apiKey = https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+const apikey = https://pro.openweathermap.org/data/2.5/forecast/hourly?lat={lat}&lon={lon}&appid={API key}
+const apikey =  https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric
+
+const searchButton = document.getElementById('searchButton');
+const cityInput = document.getElementById('cityInput');
+const weatherInfo = document.getElementById('weatherInfo');
+
+searchButton.addEventListener('click', () => {
+    const cityName = cityInput.value;
+    if (cityName) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`)
+            .then(response => response.json())
+            .then(data => {
+                const temperature = data.main.temp;
+                const weatherDescription = data.weather[0].description;
+                weatherInfo.innerHTML = `<p>Temperature: ${temperature}°C</p><p>Weather: ${weatherDescription}</p>`;
+            })
+            .catch(error => {
+                weatherInfo.innerHTML = 'City not found';
+            });
+    }
+});
+
+    </script>
+</body>
+</html>
